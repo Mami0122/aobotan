@@ -1,0 +1,22 @@
+//一番目に読み込む
+$font-base: "Zen Kaku Gothic New", sans-serif;
+$font-sub: "Kanit", sans-serif;
+$color-main: rgb(66 130 184 / 1);
+$color-sub: rgba(177, 198, 220, 1);
+$color-font: #000;
+$bg-color: rgba(248, 248, 248, 1);
+$header-height: 69px;
+
+:root{
+  --font-base: "Zen Kaku Gothic New", sans-serif;
+  --font-sub: "Kanit", sans-serif;
+  --color-main: rgb(66 130 184 / 1);
+  --color-sub: rgba(177, 198, 220, 1);
+  --color-font: #000;
+  --header-height: 69px;
+}
+
+$breakpoints: (
+  'tab': '(width >= 768px)',
+  'pc': '(width >= 960px)'
+);

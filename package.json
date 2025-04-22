@@ -1,0 +1,16 @@
+{
+  "name": "aobotan",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass sass/style.scss:css/style.css --no-source-map",
+    "watch:sass": "sass sass/style.scss:css/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.86.3"
+  }
+}

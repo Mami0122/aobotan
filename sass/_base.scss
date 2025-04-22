@@ -1,0 +1,65 @@
+//3番目に読み込む
+@use "variables" as *;
+@use "mixins" as *;
+
+body {
+  font-family: $font-base;
+  color: $color-font;
+  font-size: 1rem;
+  line-height: 1;
+  padding-top: $header-height;
+  @include mq(pc) {
+    padding: 0;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+a{
+  color: #000;
+}
+a,button{
+  cursor: pointer;
+}
+dt {
+  font-weight: normal;
+}
+.logo {
+  display: block;
+}
+.color-main {
+  color: $color-main;
+}
+.red{
+  color: #FE0000;
+}
+.only-sp {
+  @include mq(tab) {
+    display: none;
+  }
+}
+.only-pc {
+  display: none;
+  @include mq(tab) {
+    display: block;
+  }
+}
+.only-sp-and-pc{
+  @include mq() {
+   display: none;
+  }
+  @include mq(pc) {
+   display: block;
+  }
+}
+.hidden{
+  visibility: hidden;
+}
+@media screen and (min-width: 767px) {
+  a[href^="tel:"] {
+    cursor: default;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,343 @@
+@use "variables" as*;
+@use "mixins" as*;
+
+.btn {
+  color: $color-font;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  padding: 22px 82px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  position: relative;
+  transition: all 0.25s ease-in;
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: currentColor;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &:hover {
+    @media (any-hover: hover) {
+      background: #000;
+      color: #fff;
+      border: 1px solid transparent;
+    }
+  }
+}
+.btn.btn--hasIcon {
+  padding: 22px 40px;
+  background: #fff;
+  border: none;
+  display: flex;
+  gap: 8px;
+  text-align: left;
+  &::after {
+    right: 25px;
+    @include mq(tab) {
+      right: 20px;
+    }
+  }
+  &:hover {
+    @media (any-hover: hover) {
+      background: $color-main;
+    }
+  }
+}
+.btn__icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: top;
+  path {
+    transition: all 0.25s ease-in;
+  }
+  .btn.btn--hasIcon:hover & path {
+    @media (any-hover: hover) {
+      stroke: #fff;
+      fill: #fff;
+    }
+  }
+}
+.btn.btn--bgMainColor {
+  background: $color-main;
+  color: #fff;
+  padding: 22px 110px;
+  border: 1px solid transparent;
+  transition: all 0.25s ease-in;
+  &::after {
+    right: 25px;
+  }
+  &:hover {
+    @media (any-hover: hover) {
+      color: #fff;
+      background: $color-main;
+    }
+  }
+}
+.hero {
+  @include mq(tab) {
+    position: relative;
+    padding: 20px 20px 0;
+  }
+  @include mq(pc) {
+    padding: 40px 40px 0 0;
+  }
+  &::before {
+    @include mq(tab) {
+      content: '';
+      display: block;
+      position: absolute;
+      width: calc(727 / 1160 * 100%);
+      max-width: 727px;
+      aspect-ratio: 1 / 1;
+      background: $color-main;
+      top: 0;
+      right: 0;
+      z-index: -1;
+    }
+  }
+}
+.hero:has(.hero__image.hero__image--sizeShort)::before {
+  aspect-ratio: 727 / 563;
+}
+.hero__image {
+  width: calc(365 / 375 * 100%);
+  aspect-ratio: 365/ 589;
+  background: $bg-color no-repeat center / cover;
+  border-radius: 10px 0 0 10px;
+  position: relative;
+  margin-left: auto;
+  @include mq(tab) {
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1120 / 873;
+    border-radius: 50px;
+  }
+  @include mq(1537) {
+    aspect-ratio: initial;
+    width: 90%;
+    height: 80vh;
+    margin-inline: auto;
+  }
+}
+.hero__image.hero__image--sizeShort {
+  width: 95%;
+  height: 250px;
+  @include mq() {
+    width: 100%;
+    height: initial;
+    aspect-ratio: 1120 / 661;
+  }
+  @include mq(1537) {
+    aspect-ratio: initial;
+    width: 90%;
+    height: 80vh;
+  }
+}
+.numberingCardList {
+  counter-reset: numberingCard;
+}
+.numberingCard {
+  counter-increment: numberingCard;
+  &+.numberingCard {
+    margin-top: 50px;
+  }
+}
+.numberingCardImg {
+  object-fit: cover;
+}
+.numberingCard__titleWrapper {
+  position: relative;
+  margin-top: 24px;
+  &::after {
+    content: counter(numberingCard, decimal-leading-zero);
+    font-family: $font-sub;
+    color: rgba(177, 198, 220, 1);
+    font-size: rclamp(48, 168);
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: -2px;
+  }
+}
+.numberingCard__title {
+  display: inline-block;
+  font-size: rem(24);
+  font-weight: bold;
+  position: relative;
+  background-color: #fff;
+  padding: 10px 16px;
+}
+.numberingCard__text {
+  line-height: 1.8;
+  margin-top: 26px;
+}
+.numberingCard__linkButton {
+  margin-top: 28px;
+  max-width: 240px;
+  margin-right: auto;
+  .btn {
+    white-space: nowrap;
+  }
+}
+@include mq(tab) {
+  .numberingCard {
+    display: grid;
+    grid-template-columns: calc(516 / 1002 * 100%) calc(430 / 1002 * 100%);
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas: "image number"
+      "image title"
+      "image text"
+      "image button";
+    column-gap: calc(56 / 1002 * 100%);
+    max-width: 1002px;
+    &::after {
+      content: counter(numberingCard, decimal-leading-zero);
+      display: block;
+      width: fit-content;
+      grid-area: number;
+      font-family: $font-sub;
+      color: rgba(177, 198, 220, 1);
+      font-size: rclamp(48, 168);
+      font-weight: bold;
+      position: relative;
+      z-index: -1;
+    }
+  }
+  .numberingCard:nth-child(odd)::after {
+    margin-left: -49px;
+  }
+  .numberingCard:nth-child(even) {
+    grid-template-columns: calc(430 / 1002 * 100%) calc(516 / 1002 * 100%);
+    grid-template-areas: "number image"
+      "title image "
+      "text image "
+      "button image ";
+    &::after {
+      justify-self: end;
+      margin-right: -49px;
+    }
+  }
+  .numberingCardImg {
+    grid-area: image;
+  }
+  .numberingCard__titleWrapper {
+    grid-area: title;
+    margin-top: 0;
+  }
+  .numberingCard__text {
+    grid-area: text;
+    margin-top: 48px;
+  }
+  .numberingCard__linkButton {
+    grid-area: button;
+    margin-top: 28px;
+  }
+  .numberingCard__titleWrapper::after {
+    content: none;
+  }
+}
+@media screen and (min-width: 868px) and (max-width: 959px) {
+  .numberingCard:nth-child(odd)::after {
+    margin-left: -57px;
+  }
+  .numberingCard:nth-child(even)::after {
+    margin-right: -57px;
+  }
+}
+@include mq(1200) {
+  .numberingCard:nth-child(odd):after {
+    margin-left: -77px;
+  }
+  .numberingCard:nth-child(even):after {
+    text-align: right;
+    margin-right: -77px
+  }
+}
+.subPageLead {
+  max-width: 708px;
+  position: relative;
+}
+.subPageLead__title {
+  font-size: rclamp(25.2, 40);
+  font-weight: bold;
+}
+.subPageLead__img {
+  position: absolute;
+  top: -2.65em;
+  right: 1em;
+  width: rclamp(82, 165);
+  @include mq(tab) {
+    right: 5em;
+  }
+  @include mq(tab) {
+    top: 0;
+    right: 0;
+  }
+}
+.subPageLead__text {
+  line-height: 1.8;
+  margin-top: 44px;
+  @include mq(tab) {
+    width: max(422 / 953 * 100%, 422px);
+    margin-top: 50px;
+  }
+}
+.subPageInnerButtons {
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+  margin-top: 56px;
+  @include mq(tab) {
+    max-width: 672px;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    margin-top: 64px;
+  }
+}
+.subPageInnerButtons__btn {
+  display: block;
+  width: 208px;
+  padding: 11px 20px;
+  border: 1px solid $color-main;
+  border-radius: 10px;
+  transition: all 0.25s ease-in;
+  & .arrow path {
+    transition: all 0.25s ease-in;
+  }
+  &:hover {
+    @media (any-hover: hover) {
+      background: $color-main;
+      color: #fff;
+    }
+    .arrow path {
+      @media (any-hover: hover) {
+        fill: #fff;
+      }
+    }
+  }
+  @include mq (tab) {
+    width: 100%;
+  }
+}
+.subPageInnerButtons__btnText {
+  display: grid;
+  width: fit-content;
+  height: 100%;
+  margin: 0 auto;
+  gap: 13px;
+  text-align: justify;
+  &>svg {
+    justify-self: center;
+  }
+}
+.copyright {
+  display: block;
+  text-align: center;
+}

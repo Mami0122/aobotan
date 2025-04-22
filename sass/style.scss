@@ -1,0 +1,54 @@
+@use "variables" as *;
+@use "mixins" as *;
+@use "base";
+@use "layout";
+@use "components";
+@use "common-contact";
+@use "pages/_front.scss";
+@use "pages/_about.scss";
+@use "pages/_service.scss";
+@use "pages/_contact.scss";
+
+@keyframes loading{
+  0%{
+    transform: translateY(0)
+  }
+  60%{
+    transform: translateY(60%)
+  }
+  100%{
+    transform: rotate(0);
+  }
+}
+
+.loading{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  background-color: #fff;
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+.loading.active{
+  opacity: 1;
+  visibility: visible;
+}
+.loading img{
+  opacity: 0;
+}
+.loading.active img{
+  opacity: 1;
+  animation: loading 1.35s ease-in-out infinite;
+  transition: all 0.3s;
+}
+@media (scripting: none) {
+  .loading {
+    display: none;
+  }
+  .hidden {
+    display: block;
+  }
+}

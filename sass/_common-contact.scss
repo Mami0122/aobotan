@@ -1,0 +1,120 @@
+@use "variables" as*;
+@use "mixins" as*;
+
+.commonContact {
+  padding: 27px 0 41px 0;
+  background: #000;
+  background: $bg-color;
+  position: relative;
+  .sectionInner{
+    &::before {
+      content: '';
+      display: inline-block;
+      width: rclamp(59, 175);
+      aspect-ratio: 59 / 86;
+      background: url(../images/icon-commonContact.svg) no-repeat center / cover;
+      position: absolute;
+      top: -55px;
+      right: 20px;
+      @include mq(tab) {
+        top: -22px;
+        right: 40px;
+        margin-top: 0;
+      }
+      @include mq(960) {
+        top: -63px;
+      }
+      @include mq(1330) {
+        top: 1px;
+      }
+    }
+  }
+  .frontHeadingLv2__sub {
+    width: rclamp(311, 553);
+  }
+}
+.commonContact__ContentWrapper {
+  margin-top: 47px;
+}
+.commonContact__headingLv3 {
+  font-size: 2rem;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #000;
+}
+.commonContact__headingLv3Sub {
+  font-size: rem(32);
+  font-family: $font-sub;
+}
+.commonContact__headingLv3Main {
+  display: inline-block;
+  font-size: rem(12);
+  font-weight: bold;
+  margin-left: 16px;
+}
+.commonContact__telNumBox {
+  font-size: 2rem;
+  font-family: $font-sub;
+  margin-top: 24px;
+}
+.commonContact__businessHours {
+  font-family: $font-base;
+  font-size: rem(12);
+  display: block;
+  margin-top: 8px;
+}
+.commonContact__button {
+  margin-top: 36px;
+  min-width: 284px;
+  max-width: 290px;
+  white-space: nowrap;
+  @include mq() {
+    white-space: normal;
+  }
+}
+@include mq(tab) {
+  .commonContact {
+    padding: 32px 0 53px 0;
+  }
+  .commonContact__ContentWrapper {
+    display: flex;
+  }
+  .commonContact__headingLv3 {
+    font-size: 1.75rem;
+    display: grid;
+    row-gap: 8px;
+    padding: 8px 2rem 8px 0;
+    border-bottom: none;
+    border-right: 1px solid #000;
+  }
+  .commonContact__headingLv3Main {
+    margin: 0;
+    white-space: nowrap;
+  }
+  .commonContact__telNumBox {
+    font-size: 1.75rem;
+    margin-top: 0;
+    padding: 8px 2rem;
+    border-right: 1px solid #000;
+  }
+  .commonContact__businessHours {
+    margin-top: 8px;
+  }
+  .commonContact__button {
+    margin: 8px 0 8px 1.75rem;
+  }
+}
+@include mq(pc) {
+  .commonContact {
+    padding-left: 24px;
+    border-radius: 50px 0 0 50px;
+  }
+  .commonContact__headingLv3Sub {
+    font-size: 2rem;
+  }
+  .commonContact__telNumBox {
+    font-size: 2rem;
+  }
+  .commonContact__button {
+    margin-left: 1.75rem;
+  }
+}

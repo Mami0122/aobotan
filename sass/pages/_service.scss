@@ -1,0 +1,127 @@
+@use "../variables" as*;
+@use "../mixins" as*;
+
+.servicePage{
+  .hero__image{
+    background-image: url(../images/service/hero.jpg);
+  }
+  .sectionInner:not(.commonContact__sectionInner){
+    @include mq(pc) {
+      max-width: 1000px;
+    }
+    @include mq(1441) {
+      max-width: 1160px;
+    }
+  }
+  .sectionTitle{
+    font-size: rclamp(22, 32);
+    font-weight: bold;
+  }  
+}
+.servicePage .hero__image--sizeShort{
+  @media screen and (min-width: 768px) and (max-width: 1440px) { 
+    aspect-ratio: 1120 / 671;
+  }
+}
+.servicePage .sectionLead{
+  margin-top: 54px;
+  text-align: justify;
+}
+.sectionHouseBuilding{
+  margin-top: 75px;
+}
+.serviceSection + .serviceSection{
+  margin-top: 72px;
+}
+.serviceSection__topArea{
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 56px;
+  @include mq() {
+    align-items: center;
+  }
+}
+.serviceSection__textWrapper{
+  @include mq(tab) {
+    width: calc(860 / 960 * 100%);
+  }
+}
+.serviceSection__leadImg{
+  border-radius: 50px;
+  @include mq(tab) {
+  }
+}
+.serviceSection__title{
+  font-size: rclamp(21.6, 24);
+  font-weight: bold;
+  padding-bottom: 39px;
+  border-bottom: 1px solid $color-sub;
+}
+.serviceSection__serviceDescription{
+  @include mq(tab) {
+   display: flex;
+   justify-content: space-between;
+  }
+}
+.serviceSection__leadText{
+  font-size: rclamp(18, 20);
+  grid-area: leadText;
+  margin-top: 20px;
+  font-weight: bold;
+  line-height: 1.8;
+  @include mq(tab) {
+    justify-self: end;
+    width: calc(374 / 860 * 100%);
+  }
+}
+.serviceSection__text{
+  grid-area: text;
+  line-height: 1.8;
+  margin-top: 30px;
+  @include mq(tab) {
+    margin-top: 20px;
+    width: calc(446 / 860 * 100%);
+  }
+}
+.serviceSection__caseStudies{
+  margin: 56px auto 0;  
+  @include mq(tab) {
+    display: grid;
+    grid-template-columns: repeat(2, calc(352 / 860 * 100%));
+    column-gap: calc(62 / 860 * 100%);
+    width: calc(860 / 960 * 100%);
+    margin-top: 146px;
+  }
+}
+.serviceSection__caseStudy{
+  @include mq(tab) {
+   grid-row: span 3;
+   display: grid;
+   grid-template-rows: subgrid;
+  }
+  & + .serviceSection__caseStudy{
+    margin-top: 50px;
+    @include mq(tab) {
+     margin: 0;
+    }
+  }
+}
+.serviceSection__caseStudyTitle{
+  font-weight: bold;
+  line-height: 1.5;
+  margin-top: calc((1em - 1lh) / 2);
+}
+.serviceSection__caseStudyImg{
+  border-radius: 5px;
+  margin-top: 20px;
+  @include mq(tab) {
+    width: initial;
+  }
+}
+.serviceSection__caseStudyImgText{
+  font-size: rem(14);
+  margin-top: 20px;
+}
+.sectionPublicConstruction{
+  padding-bottom: 72px;
+}

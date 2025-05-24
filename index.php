@@ -306,13 +306,11 @@
       </div>
     </section>
     <?php require_once('common_contact.php'); ?>
-  </main>
-  <!-- End of main -->
+  </main><!-- End of main -->
   <?php require_once('footer.php'); ?>
-</div>
-<!-- End of mainWrapper -->
-</div>
-<!-- End of pcHeaderSpacer -->
+</div><!-- End of mainWrapper -->
+</div><!-- End of pcHeaderSpacer -->
+
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="js/wow.min.js"></script>

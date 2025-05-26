@@ -2012,6 +2012,10 @@ body.locked {
   opacity: 0;
 }
 
+.contactForm__radio:focus-visible + .text::before {
+  outline: 1px solid black;
+}
+
 .contactForm__radio:checked + .text::after {
   opacity: 1;
 }

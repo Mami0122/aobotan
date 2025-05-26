@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Sass コンパイル後の.css.map
+*.css.map
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS・エディタ固有
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp

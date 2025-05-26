@@ -229,23 +229,22 @@
   color: $color-font;
   transition: all 0.25s ease-in;
 }
-.newsItem__modalOverlay {
-  display: none;
-  &.active {
-    position: fixed;
-    inset: 0;
+::backdrop {
     background: rgba(0, 0, 0, 0.5);
-    display: grid;
-    place-items: center;
-    z-index: 110;
-  }
 }
 .newsItem__modalBody {
   width:77vw;
   height: 85vh;
   background-color: #fff;
   padding: 16px 20px;
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  margin: 0;
+  
+  /*モーダルを閉じる×印のアイコンを表示させるための指定*/
+  overflow: visible;
 }
 .newsItem__modalCloseIcon {
   position: absolute;

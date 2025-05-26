@@ -121,7 +121,6 @@
   }
 }
 body.locked {
-  height: 100vh;
   overflow: hidden;
 }
 @include mq(tab) {

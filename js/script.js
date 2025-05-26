@@ -132,36 +132,31 @@ document.addEventListener("DOMContentLoaded", function () {
   
 
   // お知らせセクションモーダル
-  const news_items = document.querySelectorAll('.newsItem');
+  const newsLists = document.querySelectorAll('.newsItem');
 
-  news_items.forEach((news_item)=>{
+  newsLists.forEach((news)=>{
+    news.addEventListener('click', (event)=>{
+      const dialog = event.currentTarget.querySelector('.newsItem__modalBody');
+      const modalBtn = dialog.querySelector('.newsItem__modalBtn'); 
+      const modalCloseIcon = dialog.querySelector('.newsItem__modalCloseIcon'); 
 
-    news_item.addEventListener('click', function(){
-      const modal = this.querySelector('.newsItem__modalOverlay');
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', false)
+      const modalClosers = [modalBtn, modalCloseIcon];
+
+      dialog.showModal();
       body.classList.add('locked');
 
-
-      const modal_btn = this.querySelector('.newsItem__modalBtn'); 
-      const modal_close_icon = this.querySelector('.newsItem__modalCloseIcon'); 
-
-      function modal_close(closer){
-        closer.addEventListener('click', function(e){
+      modalClosers.forEach((modalCloser) => {
+        modalCloser.addEventListener('click', (e)=>{
           e.stopPropagation();
-          modal.classList.remove('active');
-          modal.setAttribute('aria-hidden', true)
+          dialog.close();
           body.classList.remove('locked');
         })
-      };
-
-      modal_close(modal_btn);
-      modal_close(modal_close_icon);
-    })
+      });
+    });
   });
 
+  // フォーム
   if(location.pathname.includes('contact')){
-    // フォーム
     const form = document.querySelector('.contactForm');
     const inputs = form.querySelectorAll('input');
     const radios = [];

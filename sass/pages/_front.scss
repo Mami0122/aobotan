@@ -180,7 +180,9 @@
     width: rclamp(192, 340)
   }
 }
-.newsItem {
+.newsItem__btn {
+  display: block;
+  width: 100%;
   font-size: rclamp(14, 16);
   border-top: 1px solid $color-main;
   padding-block: 16px;
@@ -207,8 +209,8 @@
   padding-right: 37px;
   cursor: pointer;
 }
-.newsItem:last-child {
-  border-bottom: 1px solid currentColor;
+.newsItem:last-child .newsItem__btn {
+  border-bottom: 1px solid $color-main;
 }
 .newsItem__categoryRow {
   color: $color-main;
@@ -232,7 +234,7 @@
 ::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
-.newsItem__modalBody {
+.newsItem__modal {
   width:77vw;
   height: 85vh;
   background-color: #fff;
@@ -242,7 +244,7 @@
   left: 50%;
   translate: -50% -50%;
   margin: 0;
-  
+
   /*モーダルを閉じる×印のアイコンを表示させるための指定*/
   overflow: visible;
 }
@@ -255,11 +257,12 @@
   transform: translateX(100%);
   margin-right: -10px;
 }
-.newsItem__modalBodyInner{
+.newsItem__modalInner{
   height: 100%;
   text-align: justify;
   overflow-y: auto;
   scrollbar-width: none;
+  overscroll-behavior:contain;
 }
 .newsItem__modalTitle {
   font-size: rclamp(16, 24);
@@ -330,7 +333,7 @@
   .frontNews {
     padding: 107px 0 132px 0;
   }
-  .newsItem {
+  .newsItem__btn {
     padding-block: 32px;
   }
   .newsItem__title {
@@ -339,7 +342,7 @@
   .newsItem::after {
     right: 27px;
   }
-  .newsItem__modalBody {
+  .newsItem__modal {
     width:80vw;
     height: 60vh;
   }
@@ -355,7 +358,7 @@
   .frontAbout__overlappedElm {
     right: 2.7%;
   }
-  .newsItem__modalBody {
+  .newsItem__modal {
     width: calc(860 / 1440 * 100%);
     height: calc(791 / 901 * 100vh);
     padding-block: 16px 24px;

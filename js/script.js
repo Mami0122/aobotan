@@ -132,28 +132,46 @@ document.addEventListener("DOMContentLoaded", function () {
   
 
   // お知らせセクションモーダル
-  const newsLists = document.querySelectorAll('.newsItem');
+  const newsItems = document.querySelectorAll('.newsItem__btn');
+  let modal = '';
 
-  newsLists.forEach((news)=>{
-    news.addEventListener('click', (event)=>{
-      const dialog = event.currentTarget.querySelector('.newsItem__modalBody');
-      const modalBtn = dialog.querySelector('.newsItem__modalBtn'); 
-      const modalCloseIcon = dialog.querySelector('.newsItem__modalCloseIcon'); 
-
-      const modalClosers = [modalBtn, modalCloseIcon];
-
-      dialog.showModal();
-      body.classList.add('locked');
-
-      modalClosers.forEach((modalCloser) => {
-        modalCloser.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          dialog.close();
-          body.classList.remove('locked');
-        })
-      });
+  newsItems.forEach((news, index)=>{
+    news.addEventListener('click', ()=>{
+      newsModalOpen(index);
     });
   });
+
+  function newsModalOpen(index){
+    const modals = Array.from(document.querySelectorAll('.newsItem__modal'));
+    modal = modals[index];
+    const modalClosers = modal.querySelectorAll('.js-newsModalCloser'); 
+    
+    modal.showModal();
+
+    if(window.matchMedia('(pointer: coarse)').matches){
+      modalClosers[0].blur();
+    }
+
+    body.classList.add('locked');
+
+    modalClosers.forEach((modalCloser) => {
+      modalCloser.addEventListener('click', newsModalClose);
+    });
+
+    // モーダル背景のクリックでモーダルを閉じる処理
+    modal.addEventListener('click', (event)=>{
+      const isBackdropClicked = (event.target === modal) ? true : false;
+
+      if(isBackdropClicked){
+        newsModalClose();
+      }
+    });
+  }
+
+  function newsModalClose(){
+    modal.close();
+    body.classList.remove('locked');
+  }
 
   // フォーム
   if(location.pathname.includes('contact')){

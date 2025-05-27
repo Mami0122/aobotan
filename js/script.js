@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // スムーススクロール
+  // 同ページ内のid要素へのスムーススクロール
   const hash_anchors = document.querySelectorAll('a[href^="#"]');
 
   for (const anchor of hash_anchors) {
@@ -118,18 +118,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  window.addEventListener('load', () => {
-    const hash = window.location.hash;
-    if (hash) {
-      setTimeout(() => {
-        const target = document.querySelector(hash);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100); 
+  // ページ外のid要素へのスムーススクロール処理
+  const urlHash = location.hash;
+  if (urlHash) {
+    const target = jQuery(urlHash);
+    if (target.length) {
+      // ページトップから開始（ブラウザ差異を考慮して併用）
+      history.replaceState(null, '', window.location.pathname);
+      jQuery("html,body").stop().scrollTop(0);
+
+      jQuery(window).on("load", function () {
+        const headerHeight = jQuery("header").outerHeight();
+        const position = target.offset().top - headerHeight - 20;
+        jQuery("html, body").animate({ scrollTop: position }, 500, "swing");
+
+        // ハッシュを再設定
+        history.replaceState(null, '', window.location.pathname + urlHash);
+      });
     }
-  });
-  
+  }
 
   // お知らせセクションモーダル
   const newsItems = document.querySelectorAll('.newsItem__btn');

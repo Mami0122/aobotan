@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(() => {
       contentCover.classList.remove('active');
+
+      setTimeout(() => {
+        contentCover.style.display = 'none';
+      }, 775);
+      
     }, 200);
 
     storage.setItem('session', true);
@@ -28,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   } else {
     loading.style.display = 'none';
+    contentCover.style.display = 'none';
+    contentCover.style.transition = 'unset';
     contentCover.classList.remove('active');
   }
 

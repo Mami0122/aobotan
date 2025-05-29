@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         contentCover.style.display = 'none';
       }, 775);
-      
+
     }, 200);
 
     storage.setItem('session', true);
@@ -72,6 +72,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   closeMobileMenu(headerNavLink);
   closeMobileMenu(headerNavSubListLink);
+
+  //PCのヘッダーnavメニュー内のサブメニューをキーボードで選択できるようにする処理
+  function HeaderSubMenuOpenOnFocus(){
+    if(window.innerWidth >= 960){
+      document.querySelectorAll('.header__navListItem--hasSubMenu').forEach((item) => {
+        item.addEventListener('focusin', () => {
+          const subMenu = item.querySelector('.header__navSubList');
+          if (subMenu) {
+            subMenu.style.display = 'block';
+          }
+        });
+        item.addEventListener('focusout', () => {
+          const subMenu = item.querySelector('.header__navSubList');
+          if (subMenu) {
+            setTimeout(() => {
+              if (!item.contains(document.activeElement)) {
+                subMenu.style.display = 'none';
+              }
+            }, 10);
+          }
+        });
+      });
+    }  
+  }
+
+  HeaderSubMenuOpenOnFocus();
+  window.addEventListener('resize', HeaderSubMenuOpenOnFocus);
 
   // swiper
   const swiper = new Swiper('.frontAbout__swiper', {

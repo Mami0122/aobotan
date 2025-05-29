@@ -46,7 +46,10 @@
       <a class="logo" href="/"><img src="images/logo.svg" alt="青牡丹工務店"></a>
     </div>
   <?php endif; ?> 
-    <nav id="headerNav" class="header__nav">
+    <button type="button" class="burgerBtn" aria-controls="headerNav" aria-expanded="false" aria-label="メニューを開く">
+      <span class="burgerBtn__bar"></span>
+    </button>
+    <nav id="headerNav" class="header__nav" aria-hidden="true">
       <div class="header__navListWrapper">
         <ul class="header__navList">
           <li class="header__navListItem only-sp">
@@ -83,8 +86,5 @@
         <small class="header__navCopyright copyright">© AOBOTAN INC.</small>
       </div>
     </nav>
-    <button type="button" class="burgerBtn" aria-controls="headerNav" aria-expanded="false">
-      <span class="burgerBtn__bar"></span>
-    </button>
   </div>
 </header>

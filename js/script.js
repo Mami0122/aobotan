@@ -5,12 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // ローディング
   let storage = sessionStorage;
   const body = document.querySelector('body');
+  const contentCover = document.querySelector('.contentCover'); 
   const loading = document.querySelector('.loading');
 
   function loading_fadeOut() {
     loading.classList.remove('active');
     loading.style.display = 'none';
-    body.classList.remove('hidden');
+
+    setTimeout(() => {
+      contentCover.classList.remove('active');
+    }, 200);
+
     storage.setItem('session', true);
   }
 
@@ -23,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   } else {
     loading.style.display = 'none';
-    body.classList.remove('hidden');
+    contentCover.classList.remove('active');
   }
 
   //バーガーメニュー

@@ -77,10 +77,6 @@ dt {
   }
 }
 
-.hidden {
-  visibility: hidden;
-}
-
 @media screen and (min-width: 767px) {
   a[href^="tel:"] {
     cursor: default;
@@ -2126,6 +2122,19 @@ body.locked {
     transform: rotate(0);
   }
 }
+.contentCover {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background-color: #fff;
+  transition: opacity 0.575s cubic-bezier(0.47, 0, 0.745, 0.715);
+  opacity: 0;
+}
+
+.contentCover.active {
+  opacity: 1;
+}
+
 .loading {
   position: fixed;
   inset: 0;
@@ -2133,7 +2142,7 @@ body.locked {
   place-items: center;
   z-index: 1000;
   background-color: #fff;
-  transition: all 0.5s;
+  transition: opacity 0.5s;
   opacity: 0;
   visibility: hidden;
 }
@@ -2157,8 +2166,8 @@ body.locked {
   .loading {
     display: none;
   }
-  .hidden {
-    display: block;
+  .contentCover.active {
+    display: none;
   }
 }
 

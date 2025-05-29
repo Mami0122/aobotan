@@ -54,9 +54,7 @@ dt {
    display: block;
   }
 }
-.hidden{
-  visibility: hidden;
-}
+
 @media screen and (min-width: 767px) {
   a[href^="tel:"] {
     cursor: default;

@@ -38,40 +38,63 @@ document.addEventListener("DOMContentLoaded", function () {
     contentCover.classList.remove('active');
   }
 
-  //バーガーメニュー
+  //ヘッダーメニュー・バーガーメニュー
   const burger = document.querySelector('.burgerBtn');
   const navMenu = document.querySelector('.header__nav');
+  const navLinks = document.querySelectorAll('.header__navListItemLink, .header__navSubListItemLink');
+  const mediaQuery = window.matchMedia('(min-width: 960px)');
 
-  burger.addEventListener('click', function () {
-    this.classList.toggle('open');
-
-    if (this.classList.contains('open')) {
-      burger.setAttribute('aria-expanded', true);
-      navMenu.classList.add('active');
-      navMenu.setAttribute('aria-hidden', false);
-      body.classList.add('locked');
-    } else {
-      burger.setAttribute('aria-expanded', false);
+  function handleMenuState() {
+    if (mediaQuery.matches) {
+      // PC: 常にメニュー表示、aria-hiddenはfalse
       navMenu.classList.remove('active');
-      navMenu.setAttribute('aria-hidden', true);
+      navMenu.setAttribute('aria-hidden', 'false');
+      burger.setAttribute('aria-expanded', 'false'); //幅960以上でバーガーボタンはdisplay:none
       body.classList.remove('locked');
-    }
-  });
-
-  const headerNavLink = document.querySelectorAll('.header__navListItemLink');
-  const headerNavSubListLink = document.querySelectorAll('.header__navSubListItemLink');
-
-  function closeMobileMenu(headerNavLinks) {
-    for (const headerNavLink of headerNavLinks) {
-      headerNavLink.addEventListener('click', function () {
-        navMenu.classList.remove('active');
+      if(burger.classList.contains('open')){
         burger.classList.remove('open');
-      })
+      }
+    } else {
+      //スマホ・タブレット時: 初期状態では閉じた状態（aria-hidden: true）
+      if (!burger.classList.contains('open')) {
+        navMenu.setAttribute('aria-hidden', 'true');
+      }
     }
   }
 
-  closeMobileMenu(headerNavLink);
-  closeMobileMenu(headerNavSubListLink);
+  function closeMobileMenu() {
+    burger.setAttribute('aria-expanded', 'false');
+    navMenu.classList.remove('active');
+    navMenu.setAttribute('aria-hidden', 'true');
+    body.classList.remove('locked');
+    burger.classList.remove('open');
+  }
+
+  // バーガークリック処理
+  burger.addEventListener('click', function () {
+    this.classList.toggle('open');
+
+    const isOpen = this.classList.contains('open');
+    this.setAttribute('aria-expanded', isOpen);
+    navMenu.classList.toggle('active', isOpen);
+    navMenu.setAttribute('aria-hidden', !isOpen);
+    body.classList.toggle('locked', isOpen);
+  });
+
+  // スマホ時、navリンククリックでメニューを閉じる処理
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (!mediaQuery.matches) {
+        closeMobileMenu();
+      }
+    });
+  });
+
+  // メディアクエリが切り替わった時の処理
+  mediaQuery.addEventListener('change', handleMenuState);
+
+  // 初期状態反映
+  handleMenuState();
 
   //PCのヘッダーnavメニュー内のサブメニューをキーボードで選択できるようにする処理
   function HeaderSubMenuOpenOnFocus(){

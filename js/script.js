@@ -97,9 +97,11 @@ document.addEventListener("DOMContentLoaded", function () {
   handleMenuState();
 
   //PCのヘッダーnavメニュー内のサブメニューをキーボードで選択できるようにする処理
+  const navItemHasSubMenu = document.querySelectorAll('.header__navListItem--hasSubMenu');
+
   function HeaderSubMenuOpenOnFocus(){
-    if(window.innerWidth >= 960){
-      document.querySelectorAll('.header__navListItem--hasSubMenu').forEach((item) => {
+    if(mediaQuery.matches){
+      navItemHasSubMenu.forEach((item) => {
         item.addEventListener('focusin', () => {
           const subMenu = item.querySelector('.header__navSubList');
           if (subMenu) {
@@ -117,11 +119,18 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
       });
+    }else{
+      navItemHasSubMenu.forEach((item) => {
+        const subMenu = item.querySelector('.header__navSubList');
+        if(subMenu){
+          subMenu.style.display = '';
+        }
+      });
     }  
   }
 
   HeaderSubMenuOpenOnFocus();
-  window.addEventListener('resize', HeaderSubMenuOpenOnFocus);
+  mediaQuery.addEventListener('change', HeaderSubMenuOpenOnFocus);
 
   // swiper
   const swiper = new Swiper('.frontAbout__swiper', {

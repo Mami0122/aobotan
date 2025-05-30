@@ -177,36 +177,48 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 同ページ内のid要素へのスムーススクロール
-  const hash_anchors = document.querySelectorAll('a[href^="#"]');
+  // 同ページ内のid要素へのスムーススクロール  
 
-  for (const anchor of hash_anchors) {
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      const href = e.currentTarget.getAttribute('href');
-      const target = (href == "" || href == "#") ? 'html' : href;
-      const headerHeight = document.querySelector('header').offsetHeight;
+      const link = e.currentTarget;
+      const href = link.getAttribute('href');
 
-      if (target !== 'html') {
-        const target_elem = document.querySelector(target);
+      // 現在のページのURLオブジェクトを作成
+      const currentUrl = new URL(window.location.href);
 
-        if (target_elem) {
+      // リンクのURLオブジェクトを作成（相対パスも正しく処理）
+      const targetUrl = new URL(href, currentUrl);
+
+      // 同一ページかどうか（ホスト・パスが同じ）
+      const isSamePage =
+        targetUrl.origin === currentUrl.origin &&
+        targetUrl.pathname === currentUrl.pathname;
+
+      if (isSamePage && targetUrl.hash) {
+        const targetId = targetUrl.hash;
+        const targetElem = document.querySelector(targetId);
+
+        if (targetElem) {
           e.preventDefault();
+
+          const headerHeight = document.querySelector('header').offsetHeight;
+          let targetPosition = targetElem.offsetTop;
+
+          if (window.innerWidth < 960) {
+            targetPosition -= (headerHeight + 30);
+          }
+
+          window.scrollTo({
+            top: targetPosition,
+            left: 0,
+            behavior: 'smooth'
+          });
         }
-
-        let target_position = target_elem.offsetTop;
-
-        if(window.innerWidth < 960){
-          target_position = target_elem.offsetTop - headerHeight
-        }
-
-        window.scrollTo({
-          top: target_position,
-          left: 0,
-          behavior: "smooth"
-        });
       }
     });
-  }
+  });
+
 
   // ページ外のid要素へのスムーススクロール処理
   const urlHash = location.hash;
@@ -219,7 +231,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       jQuery(window).on("load", function () {
         const headerHeight = jQuery("header").outerHeight();
-        const position = target.offset().top - headerHeight - 20;
+        let position = target.offset().top;
+
+        if (window.innerWidth < 960) {
+          position -= (headerHeight + 30);
+        }
+
         jQuery("html, body").animate({ scrollTop: position }, 500, "swing");
 
         // ハッシュを再設定

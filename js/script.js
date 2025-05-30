@@ -102,6 +102,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function HeaderSubMenuOpen(){
     if(mediaQuery.matches){
       navItemHasSubMenu.forEach((item) => {
+        const subMenuLinks = item.querySelectorAll('.header__navSubListItemLink');
+
         item.addEventListener('focusin', ()=>{
           showNavSubMenu(item);
         });
@@ -111,22 +113,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         item.addEventListener('focusout', ()=>{
-          hideNavSubMenu(item);
+              hideNavSubMenu(item);
         });
 
         item.addEventListener('mouseleave', () => {
           hideNavSubMenu(item);
         });
 
-      })
-    }else{
+        subMenuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            setTimeout(() => {
+              link.blur();
+            }, 0);
+          });
+        });
+      });
+    } else {
       navItemHasSubMenu.forEach((item) => {
         const subMenu = item.querySelector('.header__navSubList');
         if(subMenu){
           subMenu.style.display = '';
         }
       });
-    }  
+    }
   }
 
   function showNavSubMenu(item){

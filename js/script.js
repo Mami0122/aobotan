@@ -99,26 +99,26 @@ document.addEventListener("DOMContentLoaded", function () {
   //PCのヘッダーnavメニュー内のサブメニューをキーボードで選択できるようにする処理
   const navItemHasSubMenu = document.querySelectorAll('.header__navListItem--hasSubMenu');
 
-  function HeaderSubMenuOpenOnFocus(){
+  function HeaderSubMenuOpen(){
     if(mediaQuery.matches){
       navItemHasSubMenu.forEach((item) => {
-        item.addEventListener('focusin', () => {
-          const subMenu = item.querySelector('.header__navSubList');
-          if (subMenu) {
-            subMenu.style.display = 'block';
-          }
+        item.addEventListener('focusin', ()=>{
+          showNavSubMenu(item);
         });
-        item.addEventListener('focusout', () => {
-          const subMenu = item.querySelector('.header__navSubList');
-          if (subMenu) {
-            setTimeout(() => {
-              if (!item.contains(document.activeElement)) {
-                subMenu.style.display = 'none';
-              }
-            }, 10);
-          }
+
+        item.addEventListener('mouseenter', () => {
+          showNavSubMenu(item);
         });
-      });
+
+        item.addEventListener('focusout', ()=>{
+          hideNavSubMenu(item);
+        });
+
+        item.addEventListener('mouseleave', () => {
+          hideNavSubMenu(item);
+        });
+
+      })
     }else{
       navItemHasSubMenu.forEach((item) => {
         const subMenu = item.querySelector('.header__navSubList');
@@ -129,8 +129,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }  
   }
 
-  HeaderSubMenuOpenOnFocus();
-  mediaQuery.addEventListener('change', HeaderSubMenuOpenOnFocus);
+  function showNavSubMenu(item){
+    const subMenu = item.querySelector('.header__navSubList');
+    if (subMenu) {
+      subMenu.style.display = 'block';
+    }
+  }
+
+  function hideNavSubMenu(item){
+    const subMenu = item.querySelector('.header__navSubList');
+    if (subMenu) {
+      // 小さな遅延を設けて、フォーカスが移動済みかを判定する
+      setTimeout(() => {
+        if (!item.contains(document.activeElement)) {
+          subMenu.style.display = '';
+        }
+      }, 10);
+    }
+  }
+
+  HeaderSubMenuOpen();
+  mediaQuery.addEventListener('change', HeaderSubMenuOpen);
 
   // swiper
   const swiper = new Swiper('.frontAbout__swiper', {

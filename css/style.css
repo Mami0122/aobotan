@@ -8,6 +8,10 @@
   --header-height: 69px;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: "Zen Kaku Gothic New", sans-serif;
   color: #000;

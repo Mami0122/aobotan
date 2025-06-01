@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //PCのヘッダーnavメニュー内のサブメニューをキーボードで選択できるようにする処理
   const navItemHasSubMenu = document.querySelectorAll('.header__navListItem--hasSubMenu');
 
-  function HeaderSubMenuOpen(){
+  function setupHeaderSubMenuBehavior(){
     if(mediaQuery.matches){
       navItemHasSubMenu.forEach((item) => {
         const subMenuLinks = item.querySelectorAll('.header__navSubListItemLink');
@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  HeaderSubMenuOpen();
-  mediaQuery.addEventListener('change', HeaderSubMenuOpen);
+  setupHeaderSubMenuBehavior();
+  mediaQuery.addEventListener('change', setupHeaderSubMenuBehavior);
 
   // swiper
   const swiper = new Swiper('.frontAbout__swiper', {
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let radioChecked = true;
 
       inputs.forEach((input)=>{
-        if(input.type !== 'radio' && input.type !== 'checkbox' && input.required){
+        if(input.type == 'text' && input.required){
           if(input.value.trim() === ''){
             textInputFilled = false;
           }
@@ -345,10 +345,31 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.disabled = true;
       }
     }
-    
+
+    const debounce = (mainFunction, delay) => {
+      // Declare a variable called 'timer' to store the timer ID
+      let timer;
+
+      // Return an anonymous function that takes in any number of arguments
+      return function (...args) {
+        // Clear the previous timer to prevent the execution of 'mainFunction'
+        clearTimeout(timer);
+
+        // Set a new timer that will execute 'mainFunction' after the specified delay
+        timer = setTimeout(() => {
+          mainFunction(...args);
+        }, delay);
+      };
+    };
+
+    const debouncedCheckInputs = debounce(checkInputs, 300);
+
     inputs.forEach((input)=>{
-      input.addEventListener('input',checkInputs);
+      input.addEventListener('input',debouncedCheckInputs);
     });
+
+    //バリデーションエラーでリダイレクトされた時の為に実施
+    checkInputs();
 
     // フォーム送信後のバリデーションエラーでcontactページにリダイレクト後にエラーメッセージが表示された際のアクセシビリティ処理
     const formErrorMessageList = document.querySelector('.form-error-list');

@@ -113,10 +113,10 @@
   .burgerBtn__bar {
     background-color: transparent;
     &::before {
-      transform: translateY(10px) rotate(45deg);
+      transform: translateY(10px) rotate(-45deg);
     }
     &::after {
-      transform: translateY(-11px) rotate(-45deg);
+      transform: translateY(-11px) rotate(45deg);
     }
   }
 }

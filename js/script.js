@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function newsModalOpen(index){
-    const modals = Array.from(document.querySelectorAll('.newsItem__modal'));
+    const modals = Array.from(document.querySelectorAll('.modal'));
     modal = modals[index];
     const modalClosers = modal.querySelectorAll('.js-newsModalCloser'); 
     

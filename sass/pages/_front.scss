@@ -234,7 +234,7 @@
 ::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
-.newsItem__modal {
+.modal {
   width:77vw;
   height: 85vh;
   background-color: #fff;
@@ -248,7 +248,7 @@
   /*モーダルを閉じる×印のアイコンを表示させるための指定*/
   overflow: visible;
 }
-.newsItem__modalCloseIcon {
+.modal__closeIcon {
   position: absolute;
   width: 16px;
   aspect-ratio: 1 / 1;
@@ -257,36 +257,36 @@
   transform: translateX(100%);
   margin-right: -10px;
 }
-.newsItem__modalInner{
+.modal__inner{
   height: 100%;
   text-align: justify;
   overflow-y: auto;
   scrollbar-width: none;
   overscroll-behavior:contain;
 }
-.newsItem__modalTitle {
+.modal__title {
   font-size: rclamp(16, 24);
   font-weight: bold;
   line-height: 1.8;
   margin-top: 16px;
 }
-.newsItem__modalImg {
+.modal__img {
   margin-block: 16px 35px;
 }
-.newsItem__modalText {
+.modal__text {
   line-height: 1.8;
 }
-.newsItem__modalTextList{
+.modal__textList{
   list-style-type: disc;
   list-style-position: inside;
 }
-.newsItem__modalTextListItem{
+.modal__textListItem{
   line-height: 1.8;
   &::marker{
   font-size: 7px;
   }
 }
-.newsItem__modalBtn {
+.modal__btn {
   display: block;
   margin: 61px auto 0;
 }
@@ -342,11 +342,11 @@
   .newsItem::after {
     right: 27px;
   }
-  .newsItem__modal {
+  .modal {
     width:80vw;
     height: 60vh;
   }
-  .newsItem__modalCloseIcon {
+  .modal__closeIcon {
     width: 25px;
     margin-right: -15px;
   }
@@ -358,13 +358,13 @@
   .frontAbout__overlappedElm {
     right: 2.7%;
   }
-  .newsItem__modal {
+  .modal {
     width: calc(860 / 1440 * 100%);
     height: calc(791 / 901 * 100vh);
     padding-block: 16px 24px;
     padding-inline: calc(102 / 1440 * 100%);  
   }
-  .newsItem__modalCloseIcon {
+  .modal__closeIcon {
     width: 32px;
   }
 }
